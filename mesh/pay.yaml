@@ -1,0 +1,12 @@
+# One healthy and one failing replica sit behind this service; outlier detection must eject the failing one.
+service: pay
+namespace: shop
+port: 5678
+subsets:
+  v1: 100
+outlier:
+  consecutive5xx: 3
+  interval: 1s
+  baseEjection: 60s
+  maxEjectionPercent: 50
+mtls: STRICT

@@ -1,0 +1,26 @@
+name: ci
+on:
+  push: {branches: [main]}
+  pull_request:
+permissions: {contents: read}
+jobs:
+  unit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install -r requirements.txt
+      - run: yamllint mesh features .github
+      - run: python -m pytest -q tests
+  mesh-e2e:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install -r requirements.txt
+      - uses: helm/kind-action@v1
+        with: {install_only: true, version: v0.25.0}
+      - name: kind, Istio, sample app, BDD suite
+        run: bash scripts/e2e.sh

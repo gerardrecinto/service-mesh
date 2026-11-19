@@ -1,0 +1,17 @@
+# Source of truth for one service's traffic. meshctl validates it and renders Istio resources from it.
+service: web
+namespace: shop
+port: 5678
+subsets:
+  v1: 90
+  v2: 10
+retries:
+  attempts: 2
+  perTryTimeout: 2s
+  retryOn: 5xx,connect-failure
+outlier:
+  consecutive5xx: 3
+  interval: 2s
+  baseEjection: 30s
+  maxEjectionPercent: 50
+mtls: STRICT
