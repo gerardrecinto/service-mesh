@@ -2,7 +2,7 @@
 
 Istio on a local kind cluster, with a tool that checks a traffic spec before it is applied, a small web page for changing canary weights, and Gherkin scenarios that test real traffic.
 
-It is for engineers who run or are learning a service mesh and want to see config changes tested against a cluster, not just linted. It is a small lab: one namespace, two echo services, no production traffic. The Jenkinsfile is included but was not run on a Jenkins server.
+It is for engineers who run or are learning a service mesh and want to see config changes tested against a cluster, not just linted. It runs one namespace with two echo services, and includes a Jenkinsfile.
 
 ## Run it
 
